@@ -1,0 +1,46 @@
+create database chapter3_ex4;
+use chapter3_ex4;
+
+create table coach (
+    coach_id int primary key,
+    name varchar(100)
+);
+
+create table team (
+    team_id int primary key,
+    team_name varchar(100),
+    coach_id int unique,
+    foreign key (coach_id) references coach(coach_id)
+);
+
+create table player (
+    player_id int primary key,
+    name varchar(100),
+    team_id int,
+    foreign key (team_id) references team(team_id)
+);
+
+create table positions (
+    position_id int primary key,
+    pos_name varchar(50)
+);
+
+create table matchs (
+    match_id int primary key,
+    match_date datetime,
+    home_team_id int,
+    away_team_id int,
+    foreign key (home_team_id) references team(team_id),
+    foreign key (away_team_id) references team(team_id)
+);
+
+create table lineups (
+    match_id int,
+    player_id int,
+    position_id int,
+    is_starter boolean,
+    primary key (match_id, player_id),
+    foreign key (match_id) references matchs(match_id),
+    foreign key (player_id) references player(player_id),
+    foreign key (position_id) references positions(position_id)
+);

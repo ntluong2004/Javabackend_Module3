@@ -1,0 +1,21 @@
+create database chapter3_ex2;
+use chapter3_ex2;
+
+create table people (
+    person_id int primary key,
+    name varchar(100)
+);
+
+create table person_phones (
+    phone_id int primary key auto_increment,
+    person_id int,
+    phone_number varchar(20),
+    foreign key (person_id) references people(person_id)
+);
+
+create table person_emails (
+    email_id int primary key auto_increment,
+    person_id int,
+    email_address varchar(100),
+    foreign key (person_id) references people(person_id)
+);

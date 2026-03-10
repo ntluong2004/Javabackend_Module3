@@ -1,0 +1,58 @@
+create database chapter3_ex1;
+use chapter3_ex1;
+
+create table author (
+    id int primary key,
+    name varchar(255) not null
+);
+
+create table book (
+    id int primary key,
+    name varchar(255) not null,
+    price decimal(10, 2),
+    stock_quantity int
+);
+
+create table write_relation (
+    book_id int,
+    author_id int,
+    date date,
+    primary key (book_id, author_id),
+    foreign key (book_id) references book(id),
+    foreign key (author_id) references author(id)
+);
+
+create table employee (
+    id int primary key,
+    name varchar(255),
+    address varchar(255)
+);
+
+create table customer (
+    id int primary key,
+    name varchar(255),
+    phone varchar(20),
+    address varchar(255),
+    ranks varchar(50),
+    total decimal(15, 2)
+);
+
+create table bill (
+    id int primary key,
+    date date,
+    total decimal(15, 2),
+    employee_id int,
+    customer_id int,
+    foreign key (employee_id) references employee(id),
+    foreign key (customer_id) references customer(id)
+);
+
+create table bill_detail (
+    bill_id int,
+    book_id int,
+    quantity int,
+    sold_price decimal(10, 2),
+    primary key (bill_id, book_id),
+    foreign key (bill_id) references bill(id),
+    foreign key (book_id) references book(id)
+);
