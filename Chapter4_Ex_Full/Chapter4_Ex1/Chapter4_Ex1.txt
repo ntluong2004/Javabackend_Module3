@@ -1,0 +1,24 @@
+Trong cơ sở dữ liệu có 6 bảng
+
+4 bảng chính là hoc_sinh, mon_hoc, giao_vien, lop
+2 bảng được tạo ra từ quan hệ nhiều nhiều là ket_qua_hoc_tap
+và phu_trach_bo_mon
+
+- Một học sinh có thể học nhiều môn, một môn có thể được học bởi
+nhiều học sinh, và việc học sẽ tạo ra kết quả học tập
+
+- Một học sinh thuộc 1 lớp, 1 lớp có nhiều học sinh
+
+- 1 giáo viên có thể chủ nhiệm nhiều lớp, 1 lớp chỉ có thể
+được chủ nhiệm bởi 1 giáo viên
+
+- 1 giáo viên phụ trách nhiều môn học, 1 môn học được phụ trách bởi nhiều giáo viên
+quan hệ này sẽ sinh ra bảng phu_trach_bo_mon
+
+=> CHI TIẾT CÁC BẢNG
+ - Bảng hoc_sinh: 1 khoá chính (ma_hs), 1 khoá ngoại (ma_lop)
+ - Bảng lop: 1 khoá chính (ma_lop), 1 khoá ngoại (ma_gvcn)
+ - Bảng giao_vien: 1 khoá chính (ma_gv)
+ - Bẩng mon_hoc: 1 khoá chính (ma_mh)
+ - Bảng phu_trach_bo_mon: 1 khoá chính với 4 thành phần ma_gvpt, ma_lop, ma_mh, hoc_ky
+ - Bảng ket_qua_hoc_tap: 1 khoá chính với 3 thành phần hoc_ky, ma_hs, ma_mh

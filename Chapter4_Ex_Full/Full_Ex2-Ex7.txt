@@ -1,0 +1,114 @@
+use test_quan_ly_truong_hoc;
+
+-- a. Toàn bộ thông tin của toàn bộ giáo viên trong trường.
+--     b. Họ tên học sinh, giới tính, họ tên phụ huynh của toàn bộ sinh viên trong trường.
+--     c. Toàn bộ thông tin của tất cả các lớp trong trường.
+select * from giao_vien;
+
+select hoc_sinh.ho_ten_hs, hoc_sinh.gioi_tinh, hoc_sinh.ho_ten_ph
+from hoc_sinh;
+
+select * from lop;
+
+-- a. Những học sinh có giới tính là Nam.
+select * from hoc_sinh
+where gioi_tinh = 'Nam';
+
+--     b. Những học sinh chưa có tên của phụ huynh.
+select * from hoc_sinh
+where ho_ten_ph is null;
+
+--     c. Những lớp chưa có giáo viên chủ nhiệm.
+select * from lop
+where ma_gvcn is null;
+
+--     d. Những học sinh chưa được phân lớp.
+select * from hoc_sinh
+where ma_lop is null;
+
+--     e. Những học sinh nữ có địa chỉ ở Thanh Khê.
+select * from hoc_sinh
+where dia_chi = 'Thanh Khê';
+
+--     f. Những học sinh nam có địa chỉ ở Hải Châu hoặc những học sinh nữ có địa chỉ ở Thanh Khê.
+select * from hoc_sinh
+where (gioi_tinh = 'Nam'and dia_chi = 'Hải Châu') or (gioi_tinh = 'Nu' and dia_chi = 'Thanh Khê');
+
+--     g. Những học sinh nam chưa có tên phụ huynh và những học sinh nữ chưa được phân lớp.
+select * from hoc_sinh
+where (gioi_tinh = 'Nam' and ho_ten_ph is null) or (gioi_tinh = 'Nu' and ma_lop is null);
+
+--     h. Những học sinh nam chưa được phân lớp và những học sinh nam chưa có tên phụ huynh.
+select * from hoc_sinh
+where (gioi_tinh = 'nam' and (ma_lop is null or ho_ten_ph is null));
+
+--     i. Mã môn học của những môn học được dạy trong học kỳ 2.
+select * from phu_trach_bo_mon.ma_mh
+where hoc_ky = 'Học kỳ 2';
+
+select distinct ma_mh from phu_trach_bo_mon where hoc_ky = 'Học kỳ 2';
+
+-- 	   a. Những học sinh có họ tên bắt đầu bằng từ Nguyễn.
+select * from hoc_sinh 
+where ho_ten_hs like 'nguyen%';
+
+--     b. Những học sinh có họ tên kết thúc bằng từ Nở.
+select * from hoc_sinh
+where ho_ten_hs like '%Nở';
+
+--     c. Những học sinh có họ tên chứa từ Thị.
+select * from hoc_sinh 
+where ho_ten_hs like '% Thị %';
+
+--     d. Những học sinh chứa từ Thị ở giữa (không được chứa ở đầu và ở cuối).
+select * from hoc_sinh
+where (ho_ten_hs like '% Thị %' and ho_ten_hs not like 'Thị%' and ho_ten_hs not like '%Thị');
+
+--     e. Những học sinh có họ tên với độ dài là 30 ký tự (kể cả khoảng trắng).
+select * from hoc_sinh
+where length(ho_ten_hs) = 30;
+
+--     f. Những học sinh có họ tên với độ dài tối đa là 30 ký tự.
+select * from hoc_sinh where length(ho_ten_hs) <= 30;
+
+--     g. Những học sinh có họ tên với độ dài tối đa là 30 ký tự và bắt đầu bằng ký tự N.
+select * from hoc_sinh 
+where ho_ten_hs like 'N%' and length(ho_ten_hs) <= 30;
+
+--     h. Những học sinh có họ tên bắt đầu bằng các ký tự: N, T, V.
+select * from hoc_sinh
+where ho_ten_hs like 'N%' or ho_ten_hs like 'T%' or ho_ten_hs like 'V%';
+
+--     i. Những học sinh có họ tên không được bắt đầu bằng các ký tự: N, T, V.
+select * from hoc_sinh
+where ho_ten_hs not like 'N%' and ho_ten_hs not like 'T%' and ho_ten_hs not like 'V%';
+
+--     j. Những học sinh có họ tên với phần họ có đúng 4 ký tự.
+select * from hoc_sinh where length(substring_index(ho_ten_hs, ' ', 1)) =4;
+
+-- Hãy liệt kê
+--     a. Thông tin của toàn bộ học sinh trong trường. Kết quả trả về cần được sắp xếp tăng dần theo họ tên học sinh.
+select * from hoc_sinh
+order by ho_ten_hs asc;
+
+--     b. Thông tin của toàn bộ học sinh trong trường. Kết quả trả về cần được sắp xếp giảm dần theo địa chỉ.
+select * from hoc_sinh
+order by dia_chi desc;
+
+--     c. Thông tin của toàn bộ học sinh trong trường. Kết quả trả về cần được sắp xếp tăng dần theo họ tên học sinh và giảm dần theo địa chỉ.
+select * from hoc_sinh
+order by ho_ten_hs asc, dia_chi desc;
+
+--     d. Thông tin của toàn bộ học sinh trong trường. Kết quả trả về cần được sắp xếp tăng dần theo họ tên học sinh và tăng dần theo địa chỉ.
+select * from hoc_sinh
+order by ho_ten_hs, dia_chi;
+
+--     e. Thông tin của toàn bộ học sinh trong trường. Kết quả trả về cần được sắp xếp giảm dần theo họ tên học sinh, giảm dần theo địa chỉ.
+select * from hoc_sinh 
+order by ho_ten_hs desc, dia_chi desc;
+
+--     f. Thông tin của toàn bộ học sinh trong trường. Kết quả trả về cần được sắp xếp giảm dần theo họ tên học sinh, giảm dần theo địa chỉ và tăng dần theo họ tên phụ huynh.
+select * from hoc_sinh
+order by ho_ten_hs desc, dia_chi desc, ho_ten_ph;
+
+--     *** Trả lời thêm: Trong 2 từ khóa ASC và DESC, từ nào là không bắt buộc phải ghi rõ trong câu SELECT mà kết quả thực hiện vẫn đảm bảo tính đúng đắn?
