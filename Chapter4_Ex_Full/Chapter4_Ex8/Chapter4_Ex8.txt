@@ -1,18 +1,25 @@
--- LUYỆN TẬP JOIN 2 BẢNG
+--Luyện tập về ORDER BY
 
---     a. Liệt kê ma_học_sinh, ho_ten_hoc_sinh, gioi_tinh, ma_lop, ten_lop, ma_gvcn của tất cả học sinh trong trường.
-select hoc_sinh.ma_hs, hoc_sinh.ho_ten_hs, hoc_sinh.gioi_tinh, hoc_sinh.ma_lop, lop.ten_lop, lop.ma_gvcn
-from hoc_sinh
-inner join lop on hoc_sinh.ma_lop = lop.ma_lop;
+--     a. Thông tin của toàn bộ học sinh trong trường. Kết quả trả về cần được sắp xếp tăng dần theo họ tên học sinh.
+select * from hoc_sinh
+order by ho_ten_hs asc;
 
---     b. Liệt kê ma_học_sinh, ho_ten_hoc_sinh, hoc_ky, ma_mon_hoc, diem_thi_giua_ky, diem_thi_cuoi_ky của tất cả học sinh và các môn học có kết quả tương ứng với từng học sinh trong trường.
-select hoc_sinh.ma_hs, hoc_sinh.ho_ten_hs, ket_qua_hoc_tap.hoc_ky, ket_qua_hoc_tap.ma_mh, ket_qua_hoc_tap.diem_thi_giua_ky, ket_qua_hoc_tap.diem_thi_cuoi_ky
-from hoc_sinh
-inner join ket_qua_Hoc_tap on hoc_sinh.ma_hs = ket_qua_hoc_tap.ma_hs;
+--     b. Thông tin của toàn bộ học sinh trong trường. Kết quả trả về cần được sắp xếp giảm dần theo địa chỉ.
+select * from hoc_sinh
+order by dia_chi desc;
 
---     c. Liệt kê ma_giao_vien, ho_ten_giao_vien, ma_lop, ma_mon_hoc, hoc_ky của những giáo viên đã được giao phụ trách ít nhất một môn học.
-select giao_vien.ma_gv, giao_vien.ho_ten_gv, 
+--     c. Thông tin của toàn bộ học sinh trong trường. Kết quả trả về cần được sắp xếp tăng dần theo họ tên học sinh và giảm dần theo địa chỉ.
+select * from hoc_sinh
+order by ho_ten_hs asc, dia_chi desc;
 
---     d. Suy nghĩ về yêu cầu a ở trên: Nếu học sinh chưa được phân lớp thì liệu có liệt kê được học sinh đó không?
---     e. Suy nghĩ về yêu cầu b ở trên: Nếu học sinh chưa có kết quả thi của môn nào cả thì liệu có liệt kê được học sinh đó không?
---     f. Suy nghĩ về yêu cầu c ở trên: Nếu giáo viên chưa phụ trách một môn nào cả thì liệu có liệt kê được giáo viên đó không?
+--     d. Thông tin của toàn bộ học sinh trong trường. Kết quả trả về cần được sắp xếp tăng dần theo họ tên học sinh và tăng dần theo địa chỉ.
+select * from hoc_sinh
+order by ho_ten_hs, dia_chi;
+
+--     e. Thông tin của toàn bộ học sinh trong trường. Kết quả trả về cần được sắp xếp giảm dần theo họ tên học sinh, giảm dần theo địa chỉ.
+select * from hoc_sinh 
+order by ho_ten_hs desc, dia_chi desc;
+
+--     f. Thông tin của toàn bộ học sinh trong trường. Kết quả trả về cần được sắp xếp giảm dần theo họ tên học sinh, giảm dần theo địa chỉ và tăng dần theo họ tên phụ huynh.
+select * from hoc_sinh
+order by ho_ten_hs desc, dia_chi desc, ho_ten_ph;
